@@ -1,0 +1,42 @@
+# Personagens com Modo Índio Furioso e Nexarianos
+
+class Nexariano:
+    def __init__(self, nome, força, resistência, sabedoria, habilidades, modo, aurorion):
+        self.nome = nome
+        self.força = força
+        self.resistência = resistência
+        self.sabedoria = sabedoria
+        self.habilidades = habilidades
+        self.modo = modo
+        self.aurorion = aurorion
+        self.nível = 1
+        self.equipamentos = []
+
+    def adicionar_equipamento(self, equipamento):
+        self.equipamentos.append(equipamento)
+        self.evoluir()
+
+    def evoluir(self):
+        self.nível += 1
+        self.força += 10
+        self.resistência += 10
+        self.sabedoria += 10
+
+    def ativar_aurorion(self):
+        self.força *= self.aurorion["multiplicador_forca"]
+        self.resistência *= self.aurorion["multiplicador_resistencia"]
+        self.sabedoria *= self.aurorion["multiplicador_sabedoria"]
+
+    def mostrar_atributos(self):
+        return f"{self.nome} | Força: {self.força} | Resistência: {self.resistência} | Sabedoria: {self.sabedoria} | Modo: {self.modo} | Nível: {self.nível}"
+
+# Exemplo de personagens com transformação
+personagens_nexarianos = [
+    Nexariano("Nexariano 1", 70, 60, 50, ["Habilidade1", "Habilidade2"], "Índio Furioso", {"multiplicador_forca": 2, "multiplicador_resistencia": 2, "multiplicador_sabedoria": 1.5}),
+    Nexariano("Nexariano 2", 80, 65, 60, ["Habilidade3", "Habilidade4"], "Nexariano", {"multiplicador_forca": 2.5, "multiplicador_resistencia": 2.5, "multiplicador_sabedoria": 2}),
+]
+
+# Exibindo atributos dos personagens
+for p in personagens_nexarianos:
+    p.ativar_aurorion()
+    print(p.mostrar_atributos())
