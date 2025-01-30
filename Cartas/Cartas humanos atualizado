@@ -1,0 +1,34 @@
+# Cartas de Personagens Humanos
+
+class Humano:
+    def __init__(self, nome, força, resistência, sabedoria, habilidades):
+        self.nome = nome
+        self.força = força
+        self.resistência = resistência
+        self.sabedoria = sabedoria
+        self.habilidades = habilidades
+        self.nível = 1
+        self.equipamentos = []
+
+    def adicionar_equipamento(self, equipamento):
+        self.equipamentos.append(equipamento)
+        self.evoluir()
+
+    def evoluir(self):
+        self.nível += 1
+        self.força += 5
+        self.resistência += 5
+        self.sabedoria += 5
+
+    def mostrar_atributos(self):
+        return f"{self.nome} | Força: {self.força} | Resistência: {self.resistência} | Sabedoria: {self.sabedoria} | Nível: {self.nível}"
+
+# Exemplo de criação de personagens
+personagens_humanos = [
+    Humano("Personagem 1", 50, 50, 30, ["Habilidade1", "Habilidade2"]),
+    Humano("Personagem 2", 60, 55, 40, ["Habilidade1", "Habilidade3"]),
+]
+
+# Exibindo atributos dos personagens
+for p in personagens_humanos:
+    print(p.mostrar_atributos())
