@@ -1,0 +1,17 @@
+# Cartas de Personagens
+
+Este repositório contém o código de um jogo de cartas baseado em personagens com atributos como força, resistência, sabedoria e habilidades. Os personagens evoluem com o tempo, adquirindo equipamentos e podendo realizar fusões de personalidade para aumentar seu poder.
+
+## Estrutura do Repositório
+
+- `/code`: Contém os scripts Python com a lógica do jogo.
+  - `humanos.py`: Definição de personagens humanos e suas evoluções.
+  - `nexarianos.py`: Personagens com modos de transformação e evolução com Aurorion.
+- `/assets`: Armazena recursos como imagens ou outros arquivos necessários para o jogo.
+- `README.md`: Descrição do projeto.
+
+## Como Rodar o Código
+
+1. Clone o repositório:
+   ```bash
+   git clone https://github.com/G1lC1M4R/Cartas.git
