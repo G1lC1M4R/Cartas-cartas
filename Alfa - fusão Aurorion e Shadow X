@@ -1,0 +1,99 @@
+import os
+import json
+import random
+from PIL import Image, ImageDraw, ImageFont
+
+# Lista de perfis de personagens para gerar cartas
+perfis = [
+    {
+        "nome": "Alfa - Fusão Aurorion",
+        "tipo": "Tecnológica Suprema",
+        "atributos": {
+            "força": random.randint(9000000, 10000000),
+            "resistência": random.randint(9000000, 10000000),
+            "sabedoria": random.randint(8000000, 9000000)
+        },
+        "habilidades": ["Manipulação de Aurorion", "Modo Fúria da Moto", "Camuflagem Avançada"],
+        "efeitos": [
+            {"nome": "Auto-Reparo", "descrição": "Regenera 10% da resistência por turno"},
+            {"nome": "Adaptação de Combate", "descrição": "Ganha +500000 em força se enfrentar um inimigo mais forte"}
+        ]
+    },
+    {
+        "nome": "Shadow X",
+        "tipo": "Assassino das Sombras",
+        "atributos": {
+            "força": random.randint(7000000, 8500000),
+            "resistência": random.randint(6000000, 7500000),
+            "sabedoria": random.randint(9500000, 10000000)
+        },
+        "habilidades": ["Invisibilidade Noturna", "Ataque Crítico", "Teletransporte"],
+        "efeitos": [
+            {"nome": "Golpe Sombrio", "descrição": "Dá 2x dano se estiver nas sombras"},
+            {"nome": "Esquiva Rápida", "descrição": "Reduz dano recebido em 30%"}
+        ]
+    }
+]
+
+# Gerar cartas automaticamente e salvar em JSON
+cartas = []
+for perfil in perfis:
+    carta = {
+        "nome": perfil["nome"],
+        "tipo": perfil["tipo"],
+        "atributos": perfil["atributos"],
+        "habilidades": perfil["habilidades"],
+        "efeitos": perfil["efeitos"]
+    }
+    cartas.append(carta)
+
+# Salvar as cartas em um arquivo JSON
+with open("cartas.json", "w") as arquivo:
+    json.dump(cartas, arquivo, indent=4)
+
+print("Cartas geradas e salvas com sucesso!")
+
+# Função para gerar uma imagem básica da carta
+def gerar_imagem_carta(carta, pasta_destino):
+    largura, altura = 400, 600
+    imagem = Image.new("RGB", (largura, altura), "black")
+    draw = ImageDraw.Draw(imagem)
+
+    # Definir uma fonte padrão (pode ser necessário ajustar o caminho da fonte)
+    try:
+        fonte = ImageFont.truetype("/usr/share/fonts/truetype/dejavu/DejaVuSans-Bold.ttf", 20)
+    except IOError:
+        fonte = ImageFont.load_default()
+
+    # Nome da carta
+    draw.text((20, 20), carta["nome"], font=fonte, fill="white")
+
+    # Atributos
+    y_offset = 60
+    for atributo, valor in carta["atributos"].items():
+        draw.text((20, y_offset), f"{atributo}: {valor}", font=fonte, fill="yellow")
+        y_offset += 30
+
+    # Habilidades
+    y_offset += 20
+    draw.text((20, y_offset), "Habilidades:", font=fonte, fill="cyan")
+    y_offset += 30
+    for habilidade in carta["habilidades"]:
+        draw.text((20, y_offset), f"- {habilidade}", font=fonte, fill="white")
+        y_offset += 30
+
+    # Criar a pasta "Cartas" se não existir
+    if not os.path.exists(pasta_destino):
+        os.makedirs(pasta_destino)
+
+    # Salvar a imagem na pasta especificada
+    caminho_imagem = os.path.join(pasta_destino, f"{carta['nome'].replace(' ', '_')}.png")
+    imagem.save(caminho_imagem)
+    print(f"Imagem gerada para {carta['nome']} em {caminho_imagem}!")
+
+# Definir o caminho para a pasta "Cartas"
+pasta_destino = "/storage/emulated/0/Cartas"  # Altere o caminho conforme necessário
+
+# Gerar imagens para cada carta
+for carta in cartas:
+    gerar_imagem_carta(carta, pasta_destino)
